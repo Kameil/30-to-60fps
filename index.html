@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: 'Courier New', Courier, monospace;
+        }
+        header{
+            border: 2px solid black;
+            margin-bottom: 10px;
+        }
+        header h1{
+            margin-left: 70px;
+        }
+        header img{
+            float: left;
+        }
+        input[type="file"]{
+            display: none;
+        }
+        .video-upload{
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+        }
+        .video-upload:hover{
+            background-color: #45a049;
+        }
+        .container{
+            text-align: center;
+            border: 2px solid black;
+        }
+        .video{
+            background-color: black;
+            width: 90%;
+            cursor: grab;
+            transition: all 0.3s ease;
+            box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+        }
+        #video-original{
+            margin-top: 5px;
+        }
+        #upload-converter{
+            border: none;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .video:hover{
+            transform: scale(1.05);
+        }
+        @media (min-width: 760px){
+            .video{
+                width: 55%;
+            }
+        }
+        footer{
+            bottom: 0;
+            border: 2px solid;
+            margin-top: 10px;
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="video.png" alt="video" width="70px">
+        <h1>30 to 60fps</h1>
+    </header>
+    <div class="container">
+        <div>
+            <video src="30fps.mp4" class="video" id="video-original" autoplay muted loop></video>
+        </div>
+        <div>
+            <!-- Formulário para upload do vídeo -->
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+                <label for="file-upload" class="video-upload">Escolher Video</label>
+                <input type="file" name="video" id="file-upload" accept="video/*">
+                <button type="submit" class="video-upload" id="upload-converter">Upload e Converter</button>
+            </form>
+        </div>
+        <div>
+            <video src="60fps.mp4" class="video" id="video-convertido" autoplay muted loop></video>
+        </div>
+    </div>
+    <footer>
+        <p>&copy;30 to 60fps</p>
+    </footer>
+    <script>
+        document.getElementById('file-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            
+            if (file) {
+                const videoElement = document.createElement('video');
+                const fileURL = URL.createObjectURL(file);
+                
+                videoElement.src = fileURL;
+                
+                videoElement.addEventListener('loadedmetadata', function() {
+                    const duration = videoElement.duration;
+                    console.log('Duração do vídeo:', duration, 'segundos');
+                    
+                    if (duration > 30) {
+                        alert('O vídeo selecionado tem mais de 30 segundos e não será convertido.');
+                        document.getElementById('upload-button').disabled = true;
+                    } else {
+                        document.getElementById('upload-button').disabled = false;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
