@@ -11,6 +11,7 @@
         header{
             border: 2px solid black;
             margin-bottom: 10px;
+            transition: color 0.3s ease;
         }
         header h1{
             margin-left: 70px;
@@ -37,9 +38,16 @@
         .video-upload:hover{
             background-color: #45a049;
         }
+        .container, header{
+            box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+        }
+        .container, header:hover{
+            color: gray;
+        }
         .container{
             text-align: center;
             border: 2px solid black;
+            
         }
         .video{
             background-color: black;
@@ -48,6 +56,9 @@
             transition: all 0.3s ease;
             box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
         }
+        .video:hover{
+            transform: scale(1.05);
+        }
         #video-original{
             margin-top: 5px;
         }
@@ -55,31 +66,29 @@
             border: none;
             font-family: 'Courier New', Courier, monospace;
         }
-        .video:hover{
-            transform: scale(1.05);
-        }
+        
         @media (min-width: 760px){
             .video{
                 width: 55%;
             }
         }
-        footer{
-            bottom: 0;
-            border: 2px solid;
-            margin-top: 10px;
-            font-size: 12px;
-            text-align: center;
+        @media (min-width: 1000px){
+            .video{
+                width: 40%;
+            }
         }
     </style>
+    <link href="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/cssanimation.min.css" rel="stylesheet">
 </head>
 <body>
     <header>
         <img src="video.png" alt="video" width="70px">
-        <h1>30 to 60fps</h1>
+        <h1 class="cssanimation leJoltZoom sequence">30 to 60fps</h1>
     </header>
     <div class="container">
         <div>
-            <video src="30fps.mp4" class="video" id="video-original" autoplay muted loop></video>
+            <h3 id="30fpstext">30fps:</h3>
+            <video src="30fps.mp4" class="video" id="video-original" alt="30fps" autoplay muted loop></video>
         </div>
         <div>
             <!-- Formulário para upload do vídeo -->
@@ -90,12 +99,10 @@
             </form>
         </div>
         <div>
-            <video src="60fps.mp4" class="video" id="video-convertido" autoplay muted loop></video>
+            <h3 id="60fpstext">60fps:</h3>
+            <video src="60fps.mp4" class="video" alt="60fps" id="video-convertido" autoplay muted loop></video>
         </div>
     </div>
-    <footer>
-        <p>&copy;30 to 60fps</p>
-    </footer>
     <script>
         document.getElementById('file-upload').addEventListener('change', function(event) {
             const file = event.target.files[0];
@@ -120,5 +127,6 @@
             }
         });
     </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/yesiamrocks/cssanimation.io@1.0.3/letteranimation.min.js"></script>
 </body>
 </html>
